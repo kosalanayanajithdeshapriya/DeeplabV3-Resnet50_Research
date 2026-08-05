@@ -88,6 +88,12 @@ class CocoPlantSegmentationDataset(Dataset):
                 ))
 
         self._anns_by_image_id = anns_by_image_id
+        # NOTE: previously cached rasterized masks per-worker to avoid re-rasterizing every
+        # epoch, but with DataLoader(persistent_workers=True) that cache lives for the whole
+        # training run in every worker process simultaneously and grows unbounded (full-res
+        # masks here run ~12.5MB each) -- on a memory-constrained machine (15GB total RAM)
+        # that alone was enough to trigger MemoryError mid-training. Removed; rasterizing
+        # fresh every call costs CPU time but keeps memory bounded and predictable.
 
     def __len__(self):
         return len(self.samples)
