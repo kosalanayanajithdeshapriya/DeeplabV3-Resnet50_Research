@@ -5,7 +5,7 @@ import numpy as np, pandas as pd, torch, torch.nn as nn
 from PIL import Image
 from torchvision import models, transforms
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
-sys.path.insert(0, r"d:/Reasearch/Resnet50test")
+sys.path.insert(0, r"d:/Reasearch/Resnet50test/src")
 from masked_comparison_utils import SplitFirstFolderDataset
 from torch.utils.data import DataLoader
 

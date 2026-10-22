@@ -1,6 +1,7 @@
 # Python
 __pycache__/
 *.pyc
+.ipynb_checkpoints/
 
 # Model checkpoints (large binaries, regenerable from the notebooks)
 checkpoints/
@@ -16,3 +17,7 @@ tomato final dataset_masked/
 export/
 export_leaf_pipeline/
 export_leaf_pipeline_unet/
+
+# Local tooling / duplicate archives
+.claude/
+Thesis_Result_Figures.zip

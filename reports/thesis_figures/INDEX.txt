@@ -1,0 +1,163 @@
+Thesis result figures - index
+(file | original source | description)
+
+00_Reports/Thesis_Results_Summary.pdf
+    source: Thesis_Results_Summary.pdf
+    Thesis results summary
+
+00_Reports/Full_Results_UNet_vs_DeepLabV3.pdf
+    source: FULL_RESULTS_UNET_DEEPLABV3.pdf
+    Full UNet vs DeepLabV3 results report
+
+00_Reports/Paper_Results_Report.pdf
+    source: paper_report/PAPER_RESULTS_REPORT.pdf
+    Paper results report
+
+01_Dataset/01_Class_Distribution.png
+    source: paper_report/figures/fig1_class_distribution.png
+    Class distribution, 982 images (paper Fig 1)
+
+01_Dataset/02_Masking_Examples_GroundTruth_Masks.png
+    source: scripts/masking_examples.png
+    Examples of ground-truth masked dataset generation
+
+02_ResNet50_Classifier/A_Original_Images/01_Sample_Training_Batch.png
+    source: resnet50.ipynb (cell 5 output)
+    Sample batch with class labels
+
+02_ResNet50_Classifier/A_Original_Images/02_Training_Curves_Loss_Accuracy.png
+    source: resnet50.ipynb (cell 12 output)
+    Training/validation loss and accuracy
+
+02_ResNet50_Classifier/A_Original_Images/03_Confusion_Matrix_Test_96.88pct.png
+    source: resnet50.ipynb (cell 14 output)
+    Test-set confusion matrix, original-trained ResNet50
+
+02_ResNet50_Classifier/B_Masked_Images/01_Training_Curves_Masked_Model.png
+    source: resnet50_masked_comparison.ipynb (cell 11 output)
+    Training curves, masked-trained ResNet50
+
+02_ResNet50_Classifier/B_Masked_Images/02_CM_Train-Masked_Eval-Masked_91.88pct.png
+    source: resnet50_masked_comparison.ipynb (cell 13 output)
+    Four-way comparison: train=masked, eval=masked, acc=91.88%
+
+02_ResNet50_Classifier/B_Masked_Images/03_CM_Train-Masked_Eval-Original_35.63pct.png
+    source: resnet50_masked_comparison.ipynb (cell 13 output)
+    Four-way comparison: train=masked, eval=original, acc=35.63%
+
+02_ResNet50_Classifier/B_Masked_Images/04_CM_Train-Original_Eval-Masked_76.88pct.png
+    source: resnet50_masked_comparison.ipynb (cell 13 output)
+    Four-way comparison: train=original, eval=masked, acc=76.88%
+
+02_ResNet50_Classifier/B_Masked_Images/05_CM_Train-Original_Eval-Original_96.88pct.png
+    source: resnet50_masked_comparison.ipynb (cell 13 output)
+    Four-way comparison: train=original, eval=original, acc=96.88%
+
+02_ResNet50_Classifier/B_Masked_Images/Results_Masked_vs_Original.csv
+    source: masked_vs_original_comparison.csv
+    Four-way comparison table
+
+02_ResNet50_Classifier/C_GradCAM_XAI/01_GradCAM_Original_vs_Masked_Model.png
+    source: gradcam_background_dependency.png
+    Grad-CAM on the same unmasked images, original vs masked model
+
+02_ResNet50_Classifier/C_GradCAM_XAI/02_Background_Attention_Fraction.png
+    source: gradcam_background_attention_fraction.png
+    Quantified fraction of Grad-CAM attention on background
+
+03_DeepLabV3_Segmentation/01_Sanity_Check_Image_and_Mask.png
+    source: leaf_segmentation.ipynb (cell 6 output)
+    Sample images and ground-truth masks
+
+03_DeepLabV3_Segmentation/02_Training_Curves_Loss_IoU.png
+    source: leaf_segmentation.ipynb (cell 15 output)
+    Training loss and mean IoU
+
+03_DeepLabV3_Segmentation/03_Test_Predictions_Image_GT_Pred.png
+    source: leaf_segmentation.ipynb (cell 17 output)
+    Held-out test: image / GT mask / predicted mask
+
+03_DeepLabV3_Segmentation/Results_DeepLabV3_KFold_CV.csv
+    source: checkpoints_segmentation/deeplabv3_kfold_cv_results.csv
+    DeepLabV3 segmentation k-fold CV
+
+03_DeepLabV3_Segmentation/04_Pixel_Confusion_Matrix_Segmentation_Only_Table4.png
+    source: paper_report/figures/seg_pixel_cm_deeplabv3.png
+    Segmentation-only pixel CM, final DeepLabV3 on 160 test images; per-image mean+/-SD = Table 4 DeepLabV3 column
+
+04_UNet_Segmentation/01_Visual_Check_Image_GT_Pred_Per_Class.png
+    source: unet_pipeline_sanity_check.png
+    One example per class: image / GT mask / U-Net predicted mask
+
+04_UNet_Segmentation/02_Pixel_Confusion_Matrix_5Fold_CV_Mean_Table4.png
+    source: paper_report/figures/seg_pixel_cm_unet_cv_mean.png
+    Segmentation-only pixel CM averaged over 5 CV folds; mean+/-SD = Table 4 U-Net column
+
+04_UNet_Segmentation/03_Pixel_Confusion_Matrices_5Fold_CV_Per_Fold.png
+    source: paper_report/figures/seg_pixel_cm_unet_cv_folds.png
+    Segmentation-only pixel CM for each of the 5 CV folds
+
+04_UNet_Segmentation/04_Pixel_Confusion_Matrix_Final_Model_CropAligned.png
+    source: paper_report/figures/seg_pixel_cm_unet.png
+    Final (non-CV) U-Net, DeepLabV3 crop-aligned preprocessing - NOT the Table 4 numbers
+
+04_UNet_Segmentation/Results_UNet_CV_Pixel_CMs.json
+    source: paper_report/data/unet_cv_pixel_cms.json
+    Per-fold pixel counts and metrics
+
+05_Pipelines_Segment_Mask_Classify/A_DeepLabV3_to_ResNet50/01_Confusion_Matrix_87.50pct.png
+    source: deeplabv3_pipeline_confusion_matrix_recomputed.png
+    DeepLabV3 -> mask -> ResNet50 pipeline, fixed test set
+
+05_Pipelines_Segment_Mask_Classify/A_DeepLabV3_to_ResNet50/Results_Pipeline_KFold_CV.csv
+    source: deeplabv3_pipeline_kfold_cv_results.csv
+    DeepLabV3 pipeline k-fold CV
+
+05_Pipelines_Segment_Mask_Classify/B_UNet_Native_Resize_to_ResNet50/01_Confusion_Matrix_78.75pct.png
+    source: unet_pipeline_confusion_matrix.png
+    U-Net (native resize) -> ResNet50 pipeline
+
+05_Pipelines_Segment_Mask_Classify/C_UNet_Crop_Aligned_to_ResNet50/01_Confusion_Matrix_89.38pct.png
+    source: unet_crop_aligned_pipeline_confusion_matrix.png
+    U-Net (DeepLabV3 preprocessing) -> ResNet50 pipeline
+
+05_Pipelines_Segment_Mask_Classify/C_UNet_Crop_Aligned_to_ResNet50/02_UNet_5Fold_CV_Confusion_Matrices.png
+    source: paper_report/figures/fig3_unet_cv_confusion_matrices.png
+    U-Net 5-fold CV per-fold confusion matrices (paper Fig 3)
+
+05_Pipelines_Segment_Mask_Classify/C_UNet_Crop_Aligned_to_ResNet50/03_UNet_CV_Std_Analysis.png
+    source: paper_report/figures/fig6_std_analysis.png
+    U-Net CV per-class scores and SD analysis (paper Fig 6)
+
+05_Pipelines_Segment_Mask_Classify/D_Pipeline_Cross_Validation/01_Pipeline_5Fold_CV.png
+    source: paper_report/figures/fig5_pipeline_cv_folds.png
+    5-fold CV of both full pipelines (paper Fig 5)
+
+06_Model_Comparisons/01_Fixed_Split_Confusion_Matrices_All_Models.png
+    source: paper_report/figures/fig2_fixed_split_confusion_matrices.png
+    All 6 configurations side by side (paper Fig 2)
+
+06_Model_Comparisons/02_Segmentation_IoU_By_Growth_Stage.png
+    source: paper_report/figures/fig4_segmentation_by_stage.png
+    DeepLabV3 vs U-Net foreground IoU per stage (paper Fig 4)
+
+06_Model_Comparisons/03_Segmentation_CV_Folds_DeepLabV3_vs_UNet.png
+    source: paper_report/figures/fig7_segmentation_cv_folds.png
+    Segmentation CV, DeepLabV3 vs U-Net (paper Fig 7)
+
+06_Model_Comparisons/04_Segmentation_Only_Pixel_CMs_DeepLabV3_vs_UNet.png
+    source: paper_report/figures/fig8_segmentation_pixel_confusion_matrices.png
+    Segmentation-only pixel confusion matrices side by side
+
+06_Model_Comparisons/05_Segmentation_Only_Pixel_CMs_By_Growth_Stage.png
+    source: paper_report/figures/fig9_segmentation_pixel_confusion_matrices_by_stage.png
+    Segmentation-only pixel confusion matrices per growth stage, both models
+
+06_Model_Comparisons/Results_Segmentation_Only_Pixel_CMs.json
+    source: paper_report/data/seg_pixel_cms.json
+    Pixel counts + metrics per model and growth stage
+
+06_Model_Comparisons/Results_UNet_vs_DeepLabV3.csv
+    source: unet_vs_deeplabv3_comparison_v2.csv
+    UNet vs DeepLabV3 comparison table (v2)
+
