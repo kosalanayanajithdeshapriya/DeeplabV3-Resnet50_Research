@@ -140,7 +140,7 @@ def rcsv(p):
     return list(csv.DictReader(open(p, encoding="utf-8")))
 
 
-dcv = rcsv(ROOT / "deeplabv3_pipeline_kfold_cv_results.csv")
+dcv = rcsv(ROOT / "results/deeplabv3_pipeline_kfold_cv_results.csv")
 ucv = rcsv(UNET / "outputs/cross_validation/fusion_pipeline_cv_results.csv")
 mets = [("Accuracy", "pipeline_test_accuracy", "accuracy"), ("Macro precision", "pipeline_test_precision_macro", "macro_precision"),
         ("Macro recall", "pipeline_test_recall_macro", "macro_recall"), ("Macro F1", "pipeline_test_f1_macro", "macro_f1")]
@@ -192,7 +192,7 @@ fig.tight_layout()
 save(fig, "fig6_std_analysis.png")
 
 # ---- Fig 7: segmentation CV folds ----
-seg_only = rcsv(ROOT / "checkpoints_segmentation/deeplabv3_kfold_cv_results.csv")
+seg_only = rcsv(ROOT / "results/deeplabv3_kfold_cv_results.csv")
 useg = rcsv(UNET / "outputs/cross_validation/unet_segmentation_cv_results.csv")
 fig, (a1, a2) = plt.subplots(1, 2, figsize=(9, 3.2))
 f = np.arange(1, 6)

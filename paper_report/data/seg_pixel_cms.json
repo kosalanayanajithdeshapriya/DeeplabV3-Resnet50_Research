@@ -1,0 +1,234 @@
+{
+ "DeepLabV3-ResNet50": {
+  "developing": {
+   "cm": [
+    [
+     1247447,
+     188392
+    ],
+    [
+     64290,
+     557087
+    ]
+   ],
+   "pixel_accuracy": 0.8771728394101543,
+   "precision_plant": 0.7472873145990698,
+   "recall_plant": 0.896536241283472,
+   "specificity_background": 0.8687930889187436,
+   "iou_plant": 0.6879579238029611,
+   "iou_background": 0.8315598191888831,
+   "dice_plant": 0.8151363420872425
+  },
+  "flowering": {
+   "cm": [
+    [
+     2055194,
+     200196
+    ],
+    [
+     178362,
+     576808
+    ]
+   ],
+   "pixel_accuracy": 0.8742566167091836,
+   "precision_plant": 0.7423488167371082,
+   "recall_plant": 0.7638121217739052,
+   "specificity_background": 0.9112366375660086,
+   "iou_plant": 0.6037560474205698,
+   "iou_background": 0.8444549814442885,
+   "dice_plant": 0.7529275395614337
+  },
+  "fruiting": {
+   "cm": [
+    [
+     785086,
+     47304
+    ],
+    [
+     86892,
+     134414
+    ]
+   ],
+   "pixel_accuracy": 0.872642583819242,
+   "precision_plant": 0.739684566195974,
+   "recall_plant": 0.6073671748619558,
+   "specificity_background": 0.9431708694241882,
+   "iou_plant": 0.5004057927850787,
+   "iou_background": 0.8540208554067196,
+   "dice_plant": 0.6670272738099964
+  },
+  "seeding": {
+   "cm": [
+    [
+     1803543,
+     16988
+    ],
+    [
+     14813,
+     71344
+    ]
+   ],
+   "pixel_accuracy": 0.9833213404605263,
+   "precision_plant": 0.8076801159262781,
+   "recall_plant": 0.8280696867346821,
+   "specificity_background": 0.9906686565622886,
+   "iou_plant": 0.691686460807601,
+   "iou_background": 0.9826730029901751,
+   "dice_plant": 0.8177478236450435
+  },
+  "all": {
+   "cm": [
+    [
+     5891270,
+     452880
+    ],
+    [
+     344357,
+     1339653
+    ]
+   ],
+   "pixel_accuracy": 0.9006949288504464,
+   "precision_plant": 0.7473519315962384,
+   "recall_plant": 0.7955136845980725,
+   "specificity_background": 0.9286145504125848,
+   "iou_plant": 0.6269171553051397,
+   "iou_background": 0.8808049389796557,
+   "dice_plant": 0.7706811047641292
+  },
+  "mean_per_image_iou_plant": 0.6203646594794788,
+  "per_image_mean_sd": {
+   "pixel_accuracy": [
+    0.9006949288504466,
+    0.06499900435377108
+   ],
+   "precision_plant": [
+    0.7527361799512302,
+    0.1508537613014258
+   ],
+   "recall_plant": [
+    0.7797589046237119,
+    0.13713094341628965
+   ],
+   "f1_plant": [
+    0.7535741679833766,
+    0.13888177640482097
+   ]
+  }
+ },
+ "U-Net (crop-aligned)": {
+  "developing": {
+   "cm": [
+    [
+     1297877,
+     137962
+    ],
+    [
+     101689,
+     519688
+    ]
+   ],
+   "pixel_accuracy": 0.8835071280798905,
+   "precision_plant": 0.790219721736486,
+   "recall_plant": 0.8363489475793279,
+   "specificity_background": 0.9039154111289637,
+   "iou_plant": 0.684395243758058,
+   "iou_background": 0.844132269461109,
+   "dice_plant": 0.8126302259451912
+  },
+  "flowering": {
+   "cm": [
+    [
+     2042629,
+     212761
+    ],
+    [
+     133194,
+     621976
+    ]
+   ],
+   "pixel_accuracy": 0.8850861633715986,
+   "precision_plant": 0.7451161263966974,
+   "recall_plant": 0.8236238198021637,
+   "specificity_background": 0.90566553899769,
+   "iou_plant": 0.6425829940357319,
+   "iou_background": 0.8551631426820242,
+   "dice_plant": 0.7824055117689274
+  },
+  "fruiting": {
+   "cm": [
+    [
+     772457,
+     59933
+    ],
+    [
+     78149,
+     143157
+    ]
+   ],
+   "pixel_accuracy": 0.8689546130952381,
+   "precision_plant": 0.7048943818011719,
+   "recall_plant": 0.6468735596865878,
+   "specificity_background": 0.9279988947488557,
+   "iou_plant": 0.5090225751051597,
+   "iou_background": 0.8483513611168769,
+   "dice_plant": 0.6746387807613644
+  },
+  "seeding": {
+   "cm": [
+    [
+     1807882,
+     12649
+    ],
+    [
+     6750,
+     79407
+    ]
+   ],
+   "pixel_accuracy": 0.9898258131377551,
+   "precision_plant": 0.8625945076909707,
+   "recall_plant": 0.9216546537135694,
+   "specificity_background": 0.9930520271283488,
+   "iou_plant": 0.8036657692852661,
+   "iou_background": 0.9893836799047327,
+   "dice_plant": 0.8911471104801558
+  },
+  "all": {
+   "cm": [
+    [
+     5920845,
+     423305
+    ],
+    [
+     319782,
+     1364228
+    ]
+   ],
+   "pixel_accuracy": 0.9074399364237883,
+   "precision_plant": 0.7631903858558136,
+   "recall_plant": 0.8101068283442497,
+   "specificity_background": 0.9332763254336672,
+   "iou_plant": 0.6473773498504021,
+   "iou_background": 0.8884912090939704,
+   "dice_plant": 0.7859490722137101
+  },
+  "mean_per_image_iou_plant": 0.6673507291770944,
+  "per_image_mean_sd": {
+   "pixel_accuracy": [
+    0.9074399364237882,
+    0.06490789846695767
+   ],
+   "precision_plant": [
+    0.7668100928344488,
+    0.17584210417235385
+   ],
+   "recall_plant": [
+    0.8166858403343437,
+    0.1698735832055914
+   ],
+   "f1_plant": [
+    0.7827457271731403,
+    0.1702546486668948
+   ]
+  }
+ }
+}

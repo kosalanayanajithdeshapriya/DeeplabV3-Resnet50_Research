@@ -1,0 +1,15 @@
+torch
+torchvision
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+pillow
+opencv-python
+pycocotools
+tqdm
+jupyter
+# report generation (scripts/ and paper_report/)
+reportlab
+python-docx

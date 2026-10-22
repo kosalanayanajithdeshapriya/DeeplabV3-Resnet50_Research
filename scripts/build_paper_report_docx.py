@@ -1,18 +1,21 @@
-"""Convert paper_report/PAPER_RESULTS_REPORT.md into an editable .docx with embedded figures.
+ """Convert paper_report/PAPER_RESULTS_REPORT.md into an editable .docx with embedded figures.
 Handles the Markdown subset the report uses: headings, paragraphs, **bold**/*italic*/`code`,
 bullet and numbered lists, block quotes, fenced code, pipe tables, and images."""
 import re
+import sys
 from pathlib import Path
 
 from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.shared import Cm, Pt, RGBColor
+from docx.shared import Cm, Inches, Pt, RGBColor
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1] / "paper_report"
-SRC = ROOT / "PAPER_RESULTS_REPORT.md"
-OUT = ROOT / "PAPER_RESULTS_REPORT.docx"
+# optional: python build_paper_report_docx.py OTHER_REPORT.md  (resolved inside paper_report/)
+SRC = ROOT / (sys.argv[1] if len(sys.argv) > 1 else "PAPER_RESULTS_REPORT.md")
+OUT = SRC.with_suffix(".docx")
 
 doc = Document()
 sec = doc.sections[0]
@@ -100,7 +103,11 @@ while i < len(lines):
         continue
     elif m := re.match(r"!\[[^\]]*\]\(([^)]+)\)", s):
         flush()
-        doc.add_picture(str(ROOT / m.group(1)), width=TEXT_W)
+        img = ROOT / m.group(1)
+        with Image.open(img) as im:  # small figures keep their natural size (150 dpi) instead of full width
+            width = min(TEXT_W, Inches(im.width / 150))
+        doc.add_picture(str(img), width=width)
+        doc.paragraphs[-1].alignment = 1
     elif m := re.match(r"(#{1,4})\s+(.*)", s):
         flush()
         level = len(m.group(1))

@@ -21,7 +21,7 @@ def output(name, idx):
     return ''.join(''.join(o.get('text', [])) for o in n['cells'][idx].get('outputs', []))
 
 def source(name, cell=None):
-    add(f'Source: [{name}]({name})' + (f', notebook cell {cell + 1} (counting all cells from 1).' if cell is not None else '.'))
+    add(f'Source: [{name}](../{name})' + (f', notebook cell {cell + 1} (counting all cells from 1).' if cell is not None else '.'))
 
 def stage_table(name, cell):
     rows = re.findall(r'(developing|flowering|fruiting|seeding)\s+fg_iou=([\d.]+)\s+fg_dice=([\d.]+)\s+both_iou=([\d.]+)\s+n=(\d+)', output(name, cell))
@@ -42,11 +42,11 @@ def cv_table(path, columns, labels):
           [['Mean +/- SD'] + [f'{statistics.mean(float(r[c]) for r in rows):.4f} +/- {statistics.stdev(float(r[c]) for r in rows):.4f}' for c in columns]])
     source(path)
 
-U = 'unet_leaf_pipeline_comparison.ipynb'
-D = 'deeplabv3_pipeline_evaluation.ipynb'
-L = 'leaf_segmentation.ipynb'
-FULL = 'deeplabv3_pipeline_kfold_cv_results.csv'
-SEG = 'checkpoints_segmentation/deeplabv3_kfold_cv_results.csv'
+U = 'notebooks/04_unet_vs_deeplabv3_comparison.ipynb'
+D = 'notebooks/05_deeplabv3_pipeline_evaluation.ipynb'
+L = 'notebooks/03_deeplabv3_segmentation_pipeline.ipynb'
+FULL = 'results/deeplabv3_pipeline_kfold_cv_results.csv'
+SEG = 'results/deeplabv3_kfold_cv_results.csv'
 
 add('# Full results report: U-Net and DeepLabV3\n\nSegmentation models, complete growth-stage pipelines, and cross-validation. Compiled 30 September 2026 from saved evidence in this workspace. No training or inference was rerun.')
 add('This report includes all available aggregate and per-stage segmentation results, per-class pipeline reports, confusion matrices, and fold-level CV metrics found in the local result files and relevant notebooks. DeepLabV3 has completed segmentation-only and full-pipeline five-fold CV. U-Net has fixed-split results for two preprocessing variants; no U-Net CV results were found in this workspace. The external U-Net training project was not audited.')
@@ -63,9 +63,9 @@ add('The comparison code uses Resize(int(224 * 1.14)), which is Resize(255), fol
 add('Foreground IoU and Dice score plant pixels only. Both-class IoU averages background and plant IoU. The comparison notebooks compute these per image and average over images. The training/CV notebook computes both-class IoU per batch and averages batches; these aggregations should not be treated as identical. Pixel-level macro precision/recall/F1 in the training notebook come from the accumulated background/plant confusion matrix.')
 
 add('### 1.2 Fixed-split segmentation comparison: 160 test images')
-comparison = json.loads((ROOT / 'unet_vs_deeplabv3_comparison_v2.json').read_text())
+comparison = json.loads((ROOT / 'results/unet_vs_deeplabv3_comparison_v2.json').read_text())
 table(['Segmenter / preprocessing', 'Plant IoU', 'Plant Dice', 'Both-class IoU'], [[r['segmenter']] + [f'{r[k]:.4f}' for k in ['seg_foreground_iou','seg_foreground_dice','seg_both_class_mean_iou']] for r in comparison])
-source('unet_vs_deeplabv3_comparison_v2.csv')
+source('results/unet_vs_deeplabv3_comparison_v2.csv')
 for title, cell in [('DeepLabV3: comparison run',16), ('U-Net: native resize',14), ('U-Net: crop-aligned',30)]:
     add('### 1.3 ' + title if cell == 16 else '### ' + ('1.4 ' if cell == 14 else '1.5 ') + title)
     stage_table(U, cell)
@@ -85,11 +85,11 @@ add('No corresponding U-Net pixel-accuracy or pixel precision/recall summary is 
 
 add('### 1.8 DeepLabV3 detailed saved JSON: validation, test, and stages')
 add('The JSON stores a pair for each metric, reproduced as value +/- stored spread below. Its generating code and spread convention were not found in the inspected notebooks, so the second number is not labeled as a verified standard deviation or confidence interval. These are separate image-level summaries, not CV results. The IoU key corresponds to foreground IoU; precision/recall/F1 appear to describe foreground scores, but their exact averaging implementation is not independently documented in this file.')
-j = json.loads((ROOT / 'deeplabv3_report_tables.json').read_text())
+j = json.loads((ROOT / 'results/deeplabv3_report_tables.json').read_text())
 groups = [('Validation',j['validation']),('Test',j['test'])] + list(j['per_stage_test'].items())
 for keys,labels in [(['iou','dice','both_iou'],['Plant IoU','Plant Dice','Both-class IoU']), (['pixel_acc','precision','recall','f1'],['Pixel accuracy','Precision','Recall','F1'])]:
     table(['Split / test stage','Images']+labels, [[name,str(v['n'])] + [f'{v[k][0]:.4f} +/- {v[k][1]:.4f}' for k in keys] for name,v in groups])
-source('deeplabv3_report_tables.json')
+source('results/deeplabv3_report_tables.json')
 
 add('### 1.9 DeepLabV3 saved training history and other recorded evaluations')
 epochs = re.findall(r'Epoch (\d+)/15 \| train_loss ([\d.]+) train_iou ([\d.]+) \| val_loss ([\d.]+) val_iou ([\d.]+)',output(L,11))
@@ -123,20 +123,20 @@ source(L,34)
 add('### 2.6 Saved confusion matrices')
 add('Rows are true classes; columns are predicted classes. These three matrices were visually checked against the current PNG artifacts. Each totals 160 images. The DeepLabV3 PNG currently corresponds to 87.50%, not the 84.38% comparison run; both notebooks write the same PNG filename.')
 for title, fname, matrix in [
-    ('U-Net native','unet_pipeline_confusion_matrix.png',[[39,2,0,0],[2,31,27,0],[0,2,18,1],[0,0,0,38]]),
-    ('U-Net crop-aligned','unet_crop_aligned_pipeline_confusion_matrix.png',[[39,2,0,0],[2,51,7,0],[0,6,15,0],[0,0,0,38]]),
-    ('DeepLabV3 standalone','deeplabv3_pipeline_confusion_matrix_recomputed.png',[[41,0,0,0],[2,44,14,0],[0,4,17,0],[0,0,0,38]])]:
+    ('U-Net native','results/unet_pipeline_confusion_matrix.png',[[39,2,0,0],[2,31,27,0],[0,2,18,1],[0,0,0,38]]),
+    ('U-Net crop-aligned','results/unet_crop_aligned_pipeline_confusion_matrix.png',[[39,2,0,0],[2,51,7,0],[0,6,15,0],[0,0,0,38]]),
+    ('DeepLabV3 standalone','results/deeplabv3_pipeline_confusion_matrix_recomputed.png',[[41,0,0,0],[2,44,14,0],[0,4,17,0],[0,0,0,38]])]:
     add('**'+title+'**')
     table(['True / predicted','Developing','Flowering','Fruiting','Seeding'],[[c]+r for c,r in zip(['Developing','Flowering','Fruiting','Seeding'],matrix)])
     source(fname)
 add('The existing Thesis_Results_Summary.pdf also records the earlier DeepLabV3 comparison matrix below. It totals 160 images and reproduces 135/160 = 0.84375 accuracy and the saved comparison classification report; its provenance is the older PDF, not the current overwritten PNG.')
 table(['True / predicted','Developing','Flowering','Fruiting','Seeding'],[['Developing',36,5,0,0],['Flowering',1,46,13,0],['Fruiting',0,6,15,0],['Seeding',0,0,0,38]])
-source('Thesis_Results_Summary.pdf')
+source('reports/Thesis_Results_Summary.pdf')
 
 add('### 2.7 Oracle-mask and original-image reference experiments')
 table(['Classifier training / evaluation','Accuracy'],[['Original baseline on dataset/','0.9313'],['Original-trained / original images, comparison','0.9688'],['Original-trained / ground-truth masks','0.7688'],['Masked-trained / original images','0.3563'],['Masked-trained / ground-truth masks','0.9187']])
 add('These are classifier references, not additional segmentation models. Ground-truth-mask accuracy requires test annotations. The initial baseline uses a separate dataset directory and should not automatically be treated as a matched dataset comparison. Using displayed scores, the oracle-reference gaps are 4.37 percentage points for standalone DeepLabV3 and 2.49 points for crop-aligned U-Net. These are descriptive differences between fixed-split records, not causal estimates or statistical significance tests.')
-source('masked_vs_original_comparison.csv')
+source('results/masked_vs_original_comparison.csv')
 
 add('## 3. Cross-validated results')
 add('### 3.1 Coverage: what has and has not been completed')
@@ -168,12 +168,12 @@ add('DeepLabV3 has saved fixed-split pipeline scores of 84.38% and 87.50%, plus 
 add('Corrections relative to the older Thesis_Results_Summary.pdf: 0.7565 is DeepLabV3 foreground Dice in the comparison, not foreground IoU (which is 0.6230); segmenter-only CV uses KFold and scores only segmentation, rather than stratified pipeline evaluation with a fixed classifier; the current standalone notebook reports 87.50%, while the comparison notebook reports 84.38%; differences between CV and fixed-split runs cannot be attributed solely to a favorable test split because epoch budgets also differ. Overlapping standard deviations are not a significance test. The older PDF is retained unchanged.')
 
 add('## 5. Source inventory')
-for name in [L,U,D,'unet_vs_deeplabv3_comparison.csv','unet_vs_deeplabv3_comparison.json','unet_vs_deeplabv3_comparison_v2.csv','unet_vs_deeplabv3_comparison_v2.json','deeplabv3_report_tables.json',SEG,FULL,'masked_vs_original_comparison.csv','RESEARCH_REPORT_DEEPLABV3_CV.md','Thesis_Results_Summary.pdf']:
-    add('- ['+name+']('+name+')')
+for name in [L,U,D,'results/unet_vs_deeplabv3_comparison.csv','results/unet_vs_deeplabv3_comparison.json','results/unet_vs_deeplabv3_comparison_v2.csv','results/unet_vs_deeplabv3_comparison_v2.json','results/deeplabv3_report_tables.json',SEG,FULL,'results/masked_vs_original_comparison.csv','reports/RESEARCH_REPORT_DEEPLABV3_CV.md','reports/Thesis_Results_Summary.pdf']:
+    add('- ['+name+'](../'+name+')')
 add('The original two-row comparison CSV/JSON duplicates the DeepLabV3 and native U-Net rows in v2; v2 adds crop-aligned U-Net. Duplicate exports are not separate experimental replications. This report prioritizes executable notebook methods and saved numerical outputs over older prose summaries.')
 
 md = '\n'.join(parts)
-path = ROOT / 'FULL_RESULTS_UNET_DEEPLABV3.md'
+path = ROOT / 'reports' / 'FULL_RESULTS_UNET_DEEPLABV3.md'
 path.write_text(md, encoding='utf-8')
 
 # Produce a printable companion without additional dependencies or network access.
@@ -224,6 +224,6 @@ def footer(canvas,doc):
     canvas.drawString(36,22,'U-Net and DeepLabV3 | Saved results | 30 September 2026')
     canvas.drawRightString(A4[0]-36,22,str(doc.page))
 
-pdf=ROOT/'FULL_RESULTS_UNET_DEEPLABV3.pdf'
+pdf=ROOT/'reports'/'FULL_RESULTS_UNET_DEEPLABV3.pdf'
 SimpleDocTemplate(str(pdf),pagesize=A4,rightMargin=36,leftMargin=36,topMargin=36,bottomMargin=38,title='Full Results: U-Net and DeepLabV3',author='').build(story,onFirstPage=footer,onLaterPages=footer)
 print(f'Created {path.name} ({len(md.splitlines())} lines) and {pdf.name}')

@@ -7,7 +7,7 @@ from PIL import Image
 from torchvision import models, transforms
 from torchvision.models.segmentation import deeplabv3_resnet50
 from sklearn.metrics import confusion_matrix
-sys.path.insert(0, r"d:/Reasearch/Resnet50test"); sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, r"d:/Reasearch/Resnet50test/src"); sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from segmentation_dataset_utils import build_binary_mask
 from recompute_cms_models import UNet
 dev = torch.device("cuda"); torch.backends.cudnn.deterministic = True; torch.backends.cudnn.benchmark = False
